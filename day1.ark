@@ -1,0 +1,26 @@
+(import "List.ark")
+(import "String.ark")
+
+(mut data (io:readFile "day1.txt"))
+(set data (list:map (str:split data "\n") (fun (element) (toNumber element))))
+(let data-len (len data))
+
+(mut i 0)
+(while (< i data-len) {
+    (mut j (+ 1 i))
+    (while (< j data-len) {
+        (mut k (+ 1 j))
+        (while (< k data-len) {
+            (mut a (@ data i))
+            (mut b (@ data j))
+            (mut c (@ data k))
+
+            (if (= 2020 (+ a b c))
+                (print (* a b c)))
+
+            (set k (+ 1 k))
+        })
+        (set j (+ 1 j))
+    })
+    (set i (+ 1 i))
+})
