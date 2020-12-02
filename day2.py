@@ -12,7 +12,9 @@ for i, e in enumerate(content):
 valid = 0
 for data in content:
     a, b, letter, passwd = data
-    if a <= passwd.count(letter) <= b:
+    a -= 1
+    b -= 1
+    if (passwd[a] == letter) ^ (passwd[b] == letter):
         valid += 1
 
 print(valid)

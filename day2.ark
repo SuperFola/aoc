@@ -1,0 +1,32 @@
+(import "List.ark")
+(import "String.ark")
+
+(mut data (str:split (io:readFile "day2.txt") "\n"))
+(set data (list:map data (fun (e) {
+    (let first-cut (str:split e ":"))
+    (let second-cut (str:split (@ first-cut 0) " "))
+    (let third-cut (str:split (@ second-cut 0) "-"))
+
+    # final cut
+    [
+        (toNumber (@ third-cut 0))
+        (toNumber (@ third-cut 1))
+        (@ second-cut 1)
+        (@ first-cut 1)
+    ]
+})))
+
+(mut valid 0)
+(list:forEach data (fun (e) {
+    (let a (@ e 0))
+    (let b (@ e 1))
+    (let letter (@ e 2))
+    (let passwd (@ e 3))
+
+    (if (or
+        (and (= letter (@ passwd a)) (!= letter (@ passwd b)))
+        (and (!= letter (@ passwd a)) (= letter (@ passwd b))))
+        (set valid (+ 1 valid)))
+}))
+
+(print valid)
