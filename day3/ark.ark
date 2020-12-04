@@ -1,0 +1,20 @@
+(import "List.ark")
+(import "String.ark")
+
+(mut data (str:split (io:readFile "day3.txt") "\n"))
+(let line-len (len (@ data 0)))
+(let lines-count (len data))
+
+(mut trees 0)
+(mut x 0)
+(mut y 0)
+
+(while (< y lines-count) {
+    (if (= "#" (@ (@ data y) (mod x line-len)))
+        (set trees (+ 1 trees)))
+
+    (set x (+ 3 x))
+    (set y (+ 1 y))
+})
+
+(print trees)

@@ -1,0 +1,37 @@
+(import "List.ark")
+(import "String.ark")
+
+(mut data (str:split (io:readFile "day3.txt") "\n"))
+(let line-len (len (@ data 0)))
+(let lines-count (len data))
+
+(mut trees [0 0 0 0 0])
+(mut x     [0 0 0 0 0])
+(mut y     [0 0])
+
+(while (< (@ y 0) lines-count) {
+    (mut i 0)
+    (while (< i (len trees)) {
+        (mut yy (@ y (if (<= i 3) 0 1)))
+        (mut xx (mod (@ x i) line-len))
+        (if (< yy lines-count)
+            (if (= "#" (@ (@ data yy) xx))
+                (set trees (list:setAt trees i (+ 1 (@ trees i))))))
+        (set i (+ 1 i))
+    })
+
+    (set x [
+        (+ 1 (@ x 0))
+        (+ 3 (@ x 1))
+        (+ 5 (@ x 2))
+        (+ 7 (@ x 3))
+        (+ 1 (@ x 4))
+    ])
+    (set y [
+        (+ 1 (@ y 0))
+        (+ 2 (@ y 1))
+    ])
+})
+
+# 372754512
+(print (toString (list:reduce trees (fun (a b) (* a b)))))
